@@ -47,8 +47,8 @@
 
           // show overlay to select properties
           if ($("#overlay").length == 0) {
-            var propertySelection = $("<style>#overlay p{margin: 0 !important}#overlay input {margin-bottom: 0 !important; padding: 1px 6px !important;} #overlay { border: 1px solid #000;padding: 10px;position:fixed;background-color: rgba(70, 70, 70, 0.9);width:370px;height:80%;top:20px;right:20px;z-index:1000;box-shadow: inset 1px 1px 15px 0 #333;}#overlay h1, #overlay h2, #overlay p, #overlay li { line-height: 1;margin: 0 0 10px;color: #eee; font-size: 14px}#overlay label, #overlay span {color: #eee}#overlay h1 {font-size: 18px}#overlay h2 { font-size: 16px}#overlay ul { margin: 0 0 10px; padding: 0;}#overlay li { margin: 0;list-style-type: none; padding: 0 0 10px; overflow: hidden}#overlay label { width: 175px; float:left; }#overlay input[type=number] { width: 50px}#overlay ul.selectors li, #overlay ul.single-selectors li { padding: 0; text-align: right; font-size: 16px}#overlay ul.single-selectors li{ display: none}.highlighted { outline: 2px solid red !important; background-color: rgba(255, 0, 0, 0.4) !important;}#overlay li.same { display: none}</style><div id='overlay'></div>").appendTo("body");
-            
+            var propertySelection = $("<style>#overlay p{margin: 0 !important}#overlay input {margin-bottom: 0 !important; padding: 1px 6px !important;} #overlay { border: 1px solid #000;padding: 10px;position:fixed;background-color: rgba(70, 70, 70, 0.9);width:370px;height:80%;top:20px;right:20px;z-index:1000;box-shadow: inset 1px 1px 15px 0 #333;}#overlay h1, #overlay h2, #overlay p, #overlay li { line-height: 1;margin: 0 0 10px;color: #eee; font-size: 14px}#overlay label, #overlay span {color: #eee}#overlay h1 {font-size: 18px}#overlay h2 { font-size: 16px}#overlay ul { margin: 0 0 10px; padding: 0;}#overlay li { margin: 0;list-style-type: none; padding: 0 0 10px; overflow: hidden}#overlay label { width: 175px; float:left; }#overlay input[type=number] { width: 50px}#overlay ul.selectors li, #overlay ul.single-selectors li { padding: 0; text-align: right; font-size: 16px}#overlay ul.single-selectors li{ display: none}.highlighted { outline: 2px solid red !important; background-color: rgba(255, 0, 0, 0.4) !important;}#overlay li.same { display: none}</style><div id='overlay'><div class='close' style='position: absolute;top:5px;right:10px;color:#fff'>x</div></div>").appendTo("body");
+
             setupPropertiesOverlay();
           }
         });
@@ -136,6 +136,11 @@
           $(element).removeClass("highlighted");
           showValues($("#overlay select option:selected").val());
         });
+
+        $(document.body).on('click', "#overlay .close", function() {
+          $('#overlay, #working').remove();
+          $(element).removeAttr("style").removeClass('highlighted');
+        });
   		};
 
   		// 3. Show possible values
@@ -170,7 +175,7 @@
 
   		// 4. Change element based off values
   		// 5. Generate cross-browser code for copying
-      
+
       $(document.body).on('change', '#overlay input#same', function() {
         $("#overlay li.same, #overlay .diff").toggle();
         if($("input#same").is(":checked")) {
@@ -268,7 +273,7 @@
   		});
 
       selectElement();
-      
+
       $('body').append("<div id='working' style='line-height:1;border:1px solid #000;z-index:1000;position:fixed;top:10px;left:10px;height:15px;width:150px;text-align: center;font-weight: bold;color:#eee;font-size: 12px;background-color: rgba(70, 70, 70, 0.9);padding: 10px 20px;border-radius:40px'>Inline CSS3 generator on!</div>");
 			
 		})();
