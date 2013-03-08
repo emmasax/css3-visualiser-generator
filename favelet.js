@@ -135,6 +135,7 @@
           // turn off highlight
           $(element).removeClass("highlighted");
           showValues($("#overlay select option:selected").val());
+          element = '';
         });
 
         $(document.body).on('click', "#overlay .close", function() {
