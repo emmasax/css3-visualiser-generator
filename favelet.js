@@ -191,7 +191,14 @@
       });
 
       $(document.body).on('keyup', "#overlay li input", function() {
-  		  var list = $(this).closest("ul"),
+        updateStyle($(this));
+  		});
+      $(document.body).on('change', "#overlay li input", function() {
+        updateStyle($(this));
+  		});
+
+      var updateStyle = function($this) {
+        var list = $this.closest("ul"),
   		      property = list.attr("id");
 
         switch (property){
@@ -208,12 +215,17 @@
             value += (bottomRight == "") ? "0 " : bottomRight + "px ",
             value += (bottomLeft == "") ? "0" : bottomLeft + "px";
 
+
+
+
             if(list.find("input#same").is(":checked")) {
               $("#overlay .selectors span").text(all + "px");
               $(element).css("border-radius", all+"px");
+
             }
             else {
               $(element).css("border-radius", value);
+
               $("#overlay .selectors span").text(value);
               $("#overlay .single-selectors li").hide();
 
@@ -267,8 +279,7 @@
 
           default: console.log("unknown property");
         }
-
-  		});
+      };
 
       selectElement();
 
