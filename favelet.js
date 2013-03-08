@@ -1,6 +1,6 @@
 (function(){
 
-	var v = "1.3.2";
+	var v = "1.7";
 
 	if (window.jQuery === undefined || window.jQuery.fn.jquery < v) {
 		var done = false;
