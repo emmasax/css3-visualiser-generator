@@ -269,7 +269,7 @@
 
       selectElement();
       
-      $('body').append("<div id='working' style='line-height:1;border:1px solid rgb(229, 237, 240);z-index:1000;position:fixed;top:10px;left:10px;height:15px;width:150px;text-align: center;font-weight: bold;color:#18479a;font-size: 12px;background-color:rgba(229, 237, 240, 0.8);padding: 10px 20px;border-radius:40px'>Inline CSS3 generator on!</div>");
+      $('body').append("<div id='working' style='line-height:1;border:1px solid #000;z-index:1000;position:fixed;top:10px;left:10px;height:15px;width:150px;text-align: center;font-weight: bold;color:#eee;font-size: 12px;background-color: rgba(70, 70, 70, 0.9);padding: 10px 20px;border-radius:40px'>Inline CSS3 generator on!</div>");
 			
 		})();
 	}
