@@ -47,7 +47,8 @@
 
           // show overlay to select properties
           if ($("#overlay").length == 0) {
-            var propertySelection = $("<div id='overlay' draggable='true'></div>").appendTo("body");
+            var propertySelection = $("<style>.outer { display:none; }.outer div { position:absolute; background:rgb(255,0,0); z-index:65000; }.box { width:100px; height:100px; margin:10px; }#overlay { border: 1px solid #000;padding: 10px;position:fixed;background-color: rgba(70, 70, 70, 0.9);width:370px;height:80%;top:20px;right:20px;z-index:1000;box-shadow: inset 1px 1px 15px 0 #333;}#overlay h1, #overlay h2, #overlay p, #overlay li { margin: 0 0 10px;color: #eee; font-size: 14px}#overlay h1 {font-size: 18px}#overlay h2 { font-size: 16px}#overlay ul { margin: 0 0 20px; padding: 0;}#overlay li { margin: 0;list-style-type: none; padding: 0 0 10px; overflow: hidden}#overlay label { width: 175px; float:left; }#overlay input[type=number] { width: 50px}#overlay ul.selectors li, #overlay ul.single-selectors li { padding: 0; text-align: right; font-size: 16px}#overlay ul.single-selectors li{ display: none}.highlighted { outline: 2px solid red !important; background-color: rgba(255, 0, 0, 0.4) !important;}#overlay li.same { display: none}</style><div id='overlay' draggable='true'></div>").appendTo("body");
+            
             setupPropertiesOverlay();
           }
         });
