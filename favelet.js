@@ -154,13 +154,13 @@
 
           case "box-shadow":
             overlayWrapper
-              .append("<ul id='"+property+"'><li><label>Horizontal offset</label><input type='number' value='' id='horizontal' /></li><li><label>Vertical offset</label><input type='number' value='' id='vertical' /></li><li><label>Blur radius (optional)</label><input type='number' value='' id='blur' /></li><li><label>Spread radius (optional)</label><input type='number' value='' id='spread' /></li><li><label>Colour</label><input type='text' value='' id='colour' /></li><li><label>&nbsp;</label><input type='checkbox' id='inset' /> Inset?</li></ul>")
+              .append("<ul id='"+property+"'><li><label>Horizontal offset</label><input type='number' value='' id='horizontal' /></li><li><label>Vertical offset</label><input type='number' value='' id='vertical' /></li><li><label>Blur radius (optional)</label><input type='number' value='' id='blur' /></li><li><label>Spread radius (optional)</label><input type='number' value='' id='spread' /></li><li><label>Colour</label><input style='width: 100px' type='text' value='' id='colour' /></li><li><label>&nbsp;</label><input type='checkbox' id='inset' /> Inset?</li></ul>")
               .append("<h2>Cross-browser selectors</h2><ul class='selectors'><li>-webkit-box-shadow: <span>0 0 0 0 #000</span>;</li><li>-moz-box-shadow: <span>0 0 0 0 #000</span>;</li><li>box-shadow: <span>0 0 0 0 #000</span>;</li></ul>");
             break;
 
           case "text-shadow":
             overlayWrapper
-              .append("<ul id='"+property+"'><li><label>X co-ordinate</label><input type='number' value='' id='x' /></li><li><label>Y co-ordinate</label><input type='number' value='' id='y' /></li><li><label>Blur radius (optional)</label><input type='number' value='' id='blur' /></li><li><label>Colour</label><input type='text' value='' id='colour' /></li></ul>")
+              .append("<ul id='"+property+"'><li><label>X co-ordinate</label><input type='number' value='' id='x' /></li><li><label>Y co-ordinate</label><input type='number' value='' id='y' /></li><li><label>Blur radius (optional)</label><input type='number' value='' id='blur' /></li><li><label>Colour</label><input style='width: 100px' type='text' value='' id='colour' /></li></ul>")
               .append("<h2>Cross-browser selectors</h2><ul class='selectors'><li>text-shadow: <span>0 0 0 #000</span></li></ul>");
             break;
 
