@@ -1290,18 +1290,31 @@ based on
   .outer { display:none; }
   .outer div { position:absolute; background:rgb(255,0,0); z-index:65000; }
   .box { width:100px; height:100px; margin:10px; }
-  #overlay { border: 1px solid #000;padding: 10px;position:fixed;background-color: rgba(50, 50,50,0.8);width:300px;height:200px;top:10px;left:10px;z-index:1000}
-  #overlay h1, #overlay h2, #overlay p, #overlay li { margin: 0 0 10px;color: #fff; font-size: 14px}
+  #overlay { border: 1px solid #000;padding: 10px;position:fixed;background-color: rgba(70, 70, 70, 0.9);width:370px;height:400px;top:10px;right:10px;z-index:1000}
+  #overlay h1, #overlay h2, #overlay p, #overlay li { margin: 0 0 10px;color: #eee; font-size: 14px}
+  #overlay h1, #overlay h2 { font-size: 16px}
+  #overlay ul { margin: 0; padding: 0;}
+  #overlay li { margin: 0;list-style-type: none; padding: 0 0 10px; overflow: hidden}
+  #overlay label { width: 175px; float:left; }
+  #overlay input[type=number] { width: 50px}
+  #overlay ul.selectors li { padding: 0; text-align: right; font-size: 16px}
   .highlighted { outline: 2px solid red !important; background-color: rgba(255, 0, 0, 0.4) !important;}
+  {
+    -webkit-box-shadow: 0 0 20px 0 #aaa;
+    -moz-box-shadow: 0 0 20px 0 #aaa;
+    box-shadow: 0 0 20px 0 #aaa;
+  }
 </style>
 <script>
   $(function() {
+    
+    var element;
     
     // 1. Click element to select it
     var selectElement = function() {
 
       var box = new Overlay();
-      
+
       $("body").mouseover(function(e){
         var el = $(e.target);
         var offset = el.offset();
@@ -1310,15 +1323,19 @@ based on
       
       $('body').click(function(ev) {
         ev.preventDefault();
+        element = ev.target;
+
         // turn off selection
         box.kill();
+        $('body').unbind('click');
+
         // highlight selection
         $(ev.target).addClass('highlighted');
         
         // show overlay to select properties
         if ($("#overlay").length == 0) {
           var propertySelection = $("<div id='overlay'></div>").appendTo("body");
-          setupPropertiesOverlay(ev.target);
+          setupPropertiesOverlay();
         }
       });
       
@@ -1397,21 +1414,91 @@ based on
     };
 
 		// 2. Select CSS property
-		var setupPropertiesOverlay = function(element) {
+		var setupPropertiesOverlay = function() {
 		  $('#overlay')
 		    .append("<h1>CSS3 visualiser and generator</h1>")
-		    .append("<p><select><option value=''>Select CSS property</option><option value='box-shadow'>Box shadow</option><option value='text-shadow'>Text shadow</option></select></p>");
+		    .append("<p><select><option value=''>Select CSS property</option><option value='box-shadow'>Box shadow</option><option value='text-shadow'>Text shadow</option></select></p>")
+		    .append("<div class='wrapper'></div>");
 
       $('#overlay select').live('change', function() {
         // turn off highlight
-        console.log(element);
         $(element).removeClass('highlighted');
+        showValues($('#overlay select option:selected').val());
       });
-		}
+		};
 
 		// 3. Show possible values
+    var showValues = function(property) {
+      switch (property){
+        case "box-shadow":
+          $(element).removeAttr('style');
+          $('#overlay .wrapper').empty();
+          $('#overlay .wrapper')
+            .append("<ul id='"+property+"'><li><label>Horizontal offset</label><input type='number' value='' id='horizontal' /></li><li><label>Vertical offset</label><input type='number' value='' id='vertical' /></li><li><label>Blur radius (optional)</label><input type='number' value='' id='blur' /></li><li><label>Spread radius (optional)</label><input type='number' value='' id='spread' /></li><li><label>Colour</label><input type='text' value='' id='colour' /></li><li><label>&nbsp;</label><input type='checkbox' id='inset' /> Inset?</li></ul>")
+            .append("<h2>Cross-browser selectors</h2><ul class='selectors'><li>-webkit-box-shadow: <span>0 0 0 0 #000</span>;</li><li>-moz-box-shadow: <span>0 0 0 0 #000</span>;</li><li>box-shadow: <span>0 0 0 0 #000</span>;</li></ul>");
+          break;
+
+        case "text-shadow":
+          $(element).removeAttr('style');
+          $('#overlay .wrapper').empty();
+          $('#overlay .wrapper')
+            .append("<ul id='"+property+"'><li><label>X co-ordinate</label><input type='number' value='' id='x' /></li><li><label>Y co-ordinate</label><input type='number' value='' id='y' /></li><li><label>Blur radius (optional)</label><input type='number' value='' id='blur' /></li><li><label>Colour</label><input type='text' value='' id='colour' /></li></ul>")
+            .append("<h2>Cross-browser selectors</h2><p class='selectors'>text-shadow: <span>0 0 0 #000</span></p>");
+          break;
+
+        default: console.log('unknown property');
+      }
+    };
 
 		// 4. Change element based off values
+    $('#overlay input#inset').live('change', function() {
+      $('#overlay li input').trigger('keyup');
+    });
+
+		$('#overlay li input').live('keyup', function() {
+		  var list = $(this).closest('ul'),
+		      property = list.attr('id');
+		  
+      switch (property){
+        case "box-shadow":
+
+          var inset = list.find('input#inset').is(':checked'),
+              horizontal = list.find('input#horizontal').val(),
+              vertical = list.find('input#vertical').val(),
+              blur = list.find('input#blur').val(),
+              spread = list.find('input#spread').val(),
+              colour = list.find('input#colour').val();
+              
+              value = (inset) ? 'inset ' : '',
+              value += (horizontal == '') ? '0 ' : horizontal + 'px ',
+              value += (vertical == '') ? '0 ' : vertical + 'px ',
+              value += (blur == '') ? '0 ' : blur + 'px ',
+              value += (spread == '') ? '0 ' : spread + 'px ',
+              value += (colour == '') ? '#000' : colour;
+              
+          $(element).css('box-shadow', value);
+          $('#overlay .selectors span').text(value);
+          break;
+
+        case "text-shadow":
+          var x = list.find('input#x').val(),
+              y = list.find('input#y').val(),
+              blur = list.find('input#blur').val(),
+              colour = list.find('input#colour').val();
+              
+              value = (x == '') ? '0 ' : x + 'px ',
+              value += (y == '') ? '0 ' : y + 'px ',
+              value += (blur == '') ? '0 ' : blur + 'px ',
+              value += (colour == '') ? '#000' : colour;
+          
+          $(element).css('text-shadow', value);
+          $('#overlay .selectors span').text(value);
+          break;
+
+        default: console.log('unknown property');
+      }
+
+		});
 
 		// 5. Generate cross-browser code for copying
 
@@ -1419,8 +1506,6 @@ based on
   });
 	
 </script>
-
-
 
 
 </body></html>
