@@ -161,7 +161,7 @@
           case "text-shadow":
             overlayWrapper
               .append("<ul id='"+property+"'><li><label>X co-ordinate</label><input type='number' value='' id='x' /></li><li><label>Y co-ordinate</label><input type='number' value='' id='y' /></li><li><label>Blur radius (optional)</label><input type='number' value='' id='blur' /></li><li><label>Colour</label><input type='text' value='' id='colour' /></li></ul>")
-              .append("<h2>Cross-browser selectors</h2><p class='selectors'>text-shadow: <span>0 0 0 #000</span></p>");
+              .append("<h2>Cross-browser selectors</h2><ul class='selectors'><li>text-shadow: <span>0 0 0 #000</span></li></ul>");
             break;
 
           default: console.log("unknown property");
