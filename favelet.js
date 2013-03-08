@@ -131,7 +131,7 @@
   		    .append("<p><select><option value=''>Select CSS property</option><option value='border-radius'>Border radius</option><option value='box-shadow'>Box shadow</option><option value='text-shadow'>Text shadow</option></select></p>")
   		    .append("<div class='wrapper'></div>");
 
-        $("#overlay select").on("change", function() {
+        $(document.body).on('change', "#overlay select", function() {
           // turn off highlight
           $(element).removeClass("highlighted");
           showValues($("#overlay select option:selected").val());
@@ -170,8 +170,8 @@
 
   		// 4. Change element based off values
   		// 5. Generate cross-browser code for copying
-
-      $('#overlay input#same').on('change', function() {
+      
+      $(document.body).on('change', '#overlay input#same', function() {
         $("#overlay li.same, #overlay .diff").toggle();
         if($("input#same").is(":checked")) {
           $("#overlay .selectors span").text("0");
@@ -181,11 +181,11 @@
         }
       });
 
-      $("#overlay input#inset").on("change", function() {
+      $(document.body).on('change', "#overlay input#inset", function() {
         $("#overlay li input").trigger("keyup");
       });
 
-  		$("#overlay li input").on("keyup", function() {
+      $(document.body).on('keyup', "#overlay li input", function() {
   		  var list = $(this).closest("ul"),
   		      property = list.attr("id");
 
