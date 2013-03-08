@@ -208,15 +208,13 @@
             value += (bottomRight == "") ? "0 " : bottomRight + "px ",
             value += (bottomLeft == "") ? "0" : bottomLeft + "px";
 
-            $(element).css("border-radius", value);
-
-
             if(list.find("input#same").is(":checked")) {
               $("#overlay .selectors span").text(all + "px");
+              $(element).css("border-radius", all+"px");
             }
             else {
+              $(element).css("border-radius", value);
               $("#overlay .selectors span").text(value);
-
               $("#overlay .single-selectors li").hide();
 
               if(topLeft != "")
